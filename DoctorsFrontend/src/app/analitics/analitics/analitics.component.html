@@ -1,0 +1,112 @@
+<div class="mt-12 text-primary">
+  <app-patients-report-chart></app-patients-report-chart>
+</div>
+
+<!-- <apx-chart [series]="series" [chart]="chart" [title]="title"></apx-chart> -->
+
+<!-- <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="'Test'"></apx-chart> -->
+<div class="grid grid-cols-2 gap-2 px-2">
+  <div *ngFor="let chart of charts; let i = index">
+    <div class="flex flex-col gap-2">
+      <div style="width: 5%">
+        <button
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4 mb-1"
+          (click)="onDelete(i)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+      <div id="chart" class="border rounded-lg p-2 w-100">
+        <app-dynamic-chart
+          [label]="chart.label"
+          [title]="chart.title"
+          [data]="chart.data"
+          [labels]="chart.labels"
+        >
+        </app-dynamic-chart>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div mat-dialog-title>
+    <h1 class="text-2xl font-bold">Add Chart</h1>
+  </div>
+  <!-- divider -->
+  <!-- <div class="border-b border-gray-200"></div> -->
+  <mat-dialog-content>
+    <div class="content px-3">
+      <form [formGroup]="chartForm">
+        <div class="grid grid-col-3 gap-1">
+          <div class="flex gap-2">
+            <div class="flex gap-1 items-center">
+              <label>Start Date</label>
+              <input type="date" formControlName="startDate" />
+            </div>
+            <div class="flex gap-1 items-center">
+              <label>End Date</label>
+              <input type="date" formControlName="endDate" />
+            </div>
+          </div>
+          <div class=" ">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Select Patient</mat-label>
+              <mat-select
+                formControlName="patientId"
+                (selectionChange)="onPatientSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let item of myPatients"
+                  [value]="item._id"
+                  >{{ item.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="flex gap-1">
+            <div class="py-3">
+              <h3 class="text-bold mb-2">Select Measurements</h3>
+
+              <div class="flex gap-2 items-center">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Measurements</mat-label>
+                  <mat-select formControlName="measurement">
+                    <mat-option
+                      *ngFor="let item of checkboxes"
+                      [value]="item.value"
+                      >{{ item.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+                <p
+                  *ngIf="isAnyMeasurementSelected()"
+                  (click)="resetMeasurements()"
+                  class="underline cursor-pointer"
+                >
+                  Reset
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      (click)="onCreateChart()"
+      [disabled]="chartForm.invalid"
+    >
+      Create Chart
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<button mat-fab color="primary" class="menu-button" (click)="openDialog()">
+  <i class="material-icons">add</i>
+</button>

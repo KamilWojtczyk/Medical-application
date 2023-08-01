@@ -1,0 +1,20 @@
+<ng-container>
+  <div class="grid grid-cols-12 gap-y-8 md:gap-y-0 md:gap-x-8">
+    <div (click)="navigateBloodPressure()" class="col-span-12 md:col-span-6 lg:col-span-3 shadow-md bg-white rounded-lg h-40 px-5 py-5 flex flex-col gap-y-4 justify-center items-center pointer">
+      <p class="font-semibold text-black text-xl text-center">Patients with high blood pressure</p>
+      <p class="font-bold text-blue-800 text-center text-3xl">{{bloodPressure?.length || 0}}</p>
+    </div>
+    <div (click)="navigateBloodSugar()" class="col-span-12 md:col-span-6 lg:col-span-3 shadow-md bg-white rounded-lg h-40 px-5 py-5 flex flex-col gap-y-4 justify-center items-center pointer">
+      <p class="font-semibold text-black text-xl text-center">Patients with high blood sugar</p>
+      <p class="font-bold text-blue-800 text-center text-3xl">{{bloodSugar?.length || 0}}</p>
+    </div>
+    <div (click)="navigateHeartRate()" class="col-span-12 md:col-span-6 lg:col-span-3 shadow-md bg-white rounded-lg h-40 px-5 py-5 flex flex-col gap-y-4 justify-center items-center pointer">
+      <p class="font-semibold text-black text-xl text-center">Patients with high heart rate measurement</p>
+      <p class="font-bold text-blue-800 text-center text-3xl">{{heartRate?.length || 0}}</p>
+    </div>
+    <div (click)="navigateSaturation()" class="col-span-12 md:col-span-6 lg:col-span-3 shadow-md bg-white rounded-lg h-40 px-5 py-5 flex flex-col gap-y-4 justify-center items-center pointer">
+      <p class="font-semibold text-black text-xl text-center">Patients with low saturation measurement</p>
+      <p class="font-bold text-blue-800 text-center text-3xl">{{saturation?.length || 0}}</p>
+    </div>
+  </div>
+</ng-container>

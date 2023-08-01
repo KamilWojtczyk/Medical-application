@@ -1,0 +1,8 @@
+.login-card {
+  width: 550px;
+}
+@media screen and (max-width: 570px) {
+  .login-card {
+    width: 95%;
+  }
+}

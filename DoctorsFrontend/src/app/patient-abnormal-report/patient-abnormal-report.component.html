@@ -1,0 +1,71 @@
+<div class="">
+  <!-- Page content goes here  -->
+
+  <h1 class="text-2xl font-semibold text-black">{{title}}</h1>
+
+  <div *ngIf="!patientsData || patientsData.length === 0" class="flex justify-center mt-8">
+    <p class="text-black text-lg">No any patient added here yet!</p>
+  </div>
+  <div class="overflow-x-auto relative mt-8" *ngIf="patientsData && patientsData.length > 0">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="py-3 px-6">Created_at</th>
+          <th scope="col" class="py-3 px-6">Name</th>
+          <th scope="col" class="py-3 px-6">Phone</th>
+          <th scope="col" class="py-3 px-6">Gender</th>
+          <th scope="col" class="py-3 px-6">Age</th>
+          <th scope="col" class="py-3 px-6">Height</th>
+          <th scope="col" class="py-3 px-6">Weight</th>
+          <!-- <th scope="col" class="py-3 px-6">Doctor</th> -->
+          <th scope="col" class="py-3 px-6">PESEL No</th>
+          <th scope="col" class="py-3 px-6">DOB</th>
+          <th scope="col" class="py-3 px-6">Updated_at</th>
+          <th scope="col" class="py-3 px-6">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of patientsData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="py-4 px-6">
+            {{ moment(record.data.patient.created_at).format("YYYY-MM-DD hh:mm:ss") }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.name }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.phone }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.gender }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.age }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.height }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.weight }}
+          </td>
+          <!-- <td class="py-4 px-6">
+            {{ record.data.patient.doctor?.name }}
+          </td> -->
+          <td class="py-4 px-6">
+            {{ record.data.patient.peselNo }}
+          </td>
+          <td class="py-4 px-6">
+            {{ record.data.patient.DOB | date }}
+          </td>
+          <td class="py-4 px-6">
+            {{ moment(record.data.patient.updated_at).format("ll") }}
+          </td>
+          <td class="py-4 px-6">
+            <button (click)="goToDetailPage(record.data.patient._id)" class="underline text-blue-800">
+              details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

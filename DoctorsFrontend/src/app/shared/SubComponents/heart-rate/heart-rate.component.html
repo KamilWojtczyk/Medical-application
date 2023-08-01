@@ -1,0 +1,95 @@
+<div>
+  <div *ngIf="user.role === 'doctor'" class="mb-8">
+    <h1 class="text-xl font-semibold text-blue-800">
+      Add Blood Sugar Measurement
+    </h1>
+    <div class="flex items-center gap-x-5 mt-3">
+      <div class="w-80 h-28">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Enter Heart Rate
+        </p>
+        <input
+          required
+          [ngModel]="rate"
+          (ngModelChange)="handleRate($event)"
+          type="text"
+          [ngStyle]="{ outline: 'none', 'box-shadow': 'none' }"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 text-blue-800 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ rateError ? "Blood Sugar Rate required!" : "" }}
+        </p>
+      </div>
+
+      <button
+        (click)="handleAddParam()"
+        class="rounded-lg h-10 w-40 shadow-md -mt-3 text-white bg-blue-800 hover:bg-blue-900 text-sm duration-300 whitespace-nowrap"
+      >
+        Add Measurement
+      </button>
+    </div>
+  </div>
+  <div class="mb-8">
+    <h1 class="text-xl font-semibold text-blue-800">
+      List of all Heart Rate Measurements
+    </h1>
+  </div>
+  <div
+    *ngIf="!paramsData || paramsData.length === 0"
+    class="flex justify-center mt-8"
+  >
+    <p class="text-black text-lg">No any measurement added here yet!</p>
+  </div>
+  <div
+    class="overflow-x-auto relative mt-8"
+    *ngIf="paramsData && paramsData.length > 0"
+  >
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="py-3 px-6">Date</th>
+          <th scope="col" class="py-3 px-6">Heart Rate</th>
+
+          <th scope="col" class="py-3 px-6">Doctor</th>
+          <th scope="col" class="py-3 px-6">Patient</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of paramsData"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+        >
+          <td class="py-4 px-6">
+            {{ data.created_at }}
+          </td>
+          <td class="py-4 px-6">{{ data.rate }} beats per minute</td>
+
+          <td class="py-4 px-6">
+            {{ data.doctor?.name }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.patient?.name }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-14" *ngIf="chartData && chartData.length > 0">
+  <app-dynamic-chart
+    label="HEART RATE"
+    [title]="chartTitle"
+    [data]="chartData"
+    [labels]="xAxisArray"
+  >
+  </app-dynamic-chart>
+</div>

@@ -1,0 +1,44 @@
+<button #bellButton mat-button class="user mt-2 d-flex align-items-center" [ngbPopover]="popoverContent" popoverTitle="" [placement]="getPopoverPlacement()">
+  <mat-icon>notifications</mat-icon>
+  <mat-badge *ngIf="notificationData?.unread" matBadgeColor="warn" matBadge="{{notificationData?.unread || 0}}"></mat-badge>
+</button>
+
+<ng-template #popoverContent>
+  <div class="notification-list-wrapper">
+    <ul class="notification-list">
+      <li *ngFor="let notification of notificationData?.data; let i=index">
+        <!-- <i class="fas {{ notification.icon }}"></i> -->
+        <div class="d-flex alig-items-center notification-line-item" [class.unread]="!notification.readAt" (click)="onNotificationClick(notification, i)">
+          <mat-icon color="primary">notifications</mat-icon>
+          &nbsp;
+          <div class="notification-content">
+            <h6>
+              {{ notification.subTitle }}
+            </h6>
+            <p>
+              {{ notification.title }}
+            </p>
+            <p class="time">{{notification.createdAt | date:'medium'}}</p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </li>
+      <li *ngIf="!notificationData?.data?.length">
+        <!-- <i class="fas {{ notification.icon }}"></i> -->
+        <div class="d-flex alig-items-center notification-line-item">
+          <mat-icon color="primary">done</mat-icon>
+          &nbsp;
+          <div class="notification-content">
+            <h6>
+              You are all set
+            </h6>
+            <p>
+              You have no new messages!
+            </p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </li>
+    </ul>
+  </div>
+</ng-template>

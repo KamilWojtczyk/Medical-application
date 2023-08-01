@@ -1,0 +1,57 @@
+<mat-nav-list>
+  <div class="logo py-4 flex flex-col gap-2">
+    <div class="flex flex-row gap-1 items-center space-flex">
+      <div class="text-lg font-bold text-zinc-700">Blood Pressure Entries</div>
+      <div class="bg-blue-500 rounded-lg flex items-center justify-center px-2">
+        <p class="text-white font-bold text-lg">
+          {{ bpData?.length }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-row gap-1 items-center space-flex">
+      <div class="text-lg font-bold text-zinc-700">Blood Sugar Entries</div>
+      <div
+        class="bg-green-500 rounded-lg flex items-center justify-center px-2"
+      >
+        <p class="text-white font-bold text-lg">
+          {{ bsData?.length }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-row gap-1 items-center space-flex">
+      <div class="text-lg font-bold text-zinc-700">Heart Rate Entries</div>
+      <div class="bg-blue-500 rounded-lg flex items-center justify-center px-2">
+        <p class="text-white font-bold text-lg">
+          {{ hrData?.length }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-row gap-1 items-center space-flex">
+      <div class="text-lg font-bold text-zinc-700">Saturations Entries</div>
+      <div
+        class="bg-green-500 rounded-lg flex items-center justify-center px-2"
+      >
+        <p class="text-white font-bold text-lg">
+          {{ saturationData?.saturation?.length }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-row gap-1 items-center space-flex">
+      <div class="text-lg font-bold text-zinc-700">Medical Notes</div>
+      <div class="bg-blue-500 rounded-lg flex items-center justify-center px-2">
+        <p class="text-white font-bold text-lg">
+          {{ notesData?.length }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+  <a
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/medical-data"
+  >
+    <mat-icon>dashboard</mat-icon> My Medical Notes
+  </a>
+</mat-nav-list>

@@ -1,0 +1,205 @@
+<div class="">
+  <!-- Page content goes here  -->
+  <div class="mb-10">
+    <button (click)="goBack()" class="flex items-center-gap-x-1 text-blue-800 font-semibold">
+      <mat-icon class="user-image-icon ml-1">keyboard_arrow_left</mat-icon>
+      <span>Back</span>
+    </button>
+  </div>
+  <div class="flex items-center gap-x-3 mb-6 flex-wrap">
+    <button *ngFor="let btn of buttonsList" (click)="btnTab = btn" [ngClass]="
+        btnTab == btn ? 'text-white bg-blue-800' : 'text-blue-800 bg-white '
+      " class="shadow-md h-12 w-44 rounded-md text-sm mb-1">
+      {{ btn }}
+    </button>
+  </div>
+  <div *ngIf="waitingAbnormalReport" class="spinner-border" role="status" style="color: #1e40af">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="abnormal-report mb-3" *ngIf="abnormalReport">
+    <div class="mb-2 d-flex align-items-center" *ngIf="abnormalReport.bloodPressure?.length">
+      <mat-icon color="warn">report_problem</mat-icon>
+      <span class="text text-danger">In the last 24 hours the blood pressure of that patient was above the normal, please take a look</span>
+    </div>
+    <div class="mb-2 d-flex align-items-center" *ngIf="abnormalReport.bloodSugar?.length">
+      <mat-icon color="warn">report_problem</mat-icon>
+      <span class="text text-danger">In the last 24 hours the blood sugar of that patient was above the normal, please take a look</span>
+    </div>
+    <div class="mb-2 d-flex align-items-center" *ngIf="abnormalReport.heartRate?.length">
+      <mat-icon color="warn">report_problem</mat-icon>
+      <span class="text text-danger">In the last 24 hours the heart rate of that patient was above the normal, please take a look</span>
+    </div>
+    <div class="mb-2 d-flex align-items-center" *ngIf="abnormalReport.saturation?.length">
+      <mat-icon color="warn">report_problem</mat-icon>
+      <span class="text text-danger">In the last 24 hours the saturation of that patient was below the normal, please take a look</span>
+    </div>
+  </div>
+
+  <!-- Personal Information  -->
+  <div *ngIf="btnTab === 'Personal Information'" class="rounded-lg bg-white w-full min-h-60 mb-20 shadow-md py-5 text-black grid grid-cols-12 gap-y-5 md:gap-y-0 md:gap-x-5">
+    <div class="flex flex-col gap-y-5 col-span-12 md:col-span-6 px-10 md:border-r md:border-zinc-200">
+      <h1 class="font-semibold text-blue-800 text-xl mb-8">
+        Patient's Details
+      </h1>
+
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Name:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.name }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Age:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.age }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Gender:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.gender }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Phone:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.phone }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Height:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.height }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Weight:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.weight }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">PESELNO:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData.peselNo }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-5 col-span-12 md:col-span-6 px-10">
+      <h1 class="font-semibold text-blue-800 text-xl mb-8">
+        Patient's Doctor's Details
+      </h1>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Doctor Name:</p>
+        <p class="font-semibold text-xl">
+          Dr.
+          {{ patientData && patientData.doctor && patientData.doctor.name }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Phone:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData && patientData.doctor && patientData.doctor.phone }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Gender:</p>
+        <p class="font-semibold text-xl">
+          {{ patientData && patientData.doctor && patientData.doctor.gender }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="btnTab === 'Blood Pressure'">
+    <app-blood-pressure [patientId]="patientId" (refreshList)="refreshList($event)" [refreshGrid]="refreshGrid"></app-blood-pressure>
+  </div>
+  <div *ngIf="btnTab === 'Blood Sugar'">
+    <app-blood-sugar [patientId]="patientId" (refreshList)="refreshList($event)" [refreshGrid]="refreshGrid"></app-blood-sugar>
+  </div>
+  <div *ngIf="btnTab === 'Heart Rate'">
+    <app-heart-rate [patientId]="patientId" (refreshList)="refreshList($event)" [refreshGrid]="refreshGrid"></app-heart-rate>
+  </div>
+  <div *ngIf="btnTab === 'Saturation'">
+    <app-saturation [patientId]="patientId" (refreshList)="refreshList($event)" [refreshGrid]="refreshGrid"></app-saturation>
+  </div>
+
+  <div *ngIf="btnTab === 'AGP'">
+    <app-agp-chart></app-agp-chart>
+  </div>
+
+  <!-- ********************************************************************* -->
+  <div *ngIf="btnTab === 'Medical Note'" class="mt-20">
+    <!-- Page content goes here  -->
+    <div class="mb-8 flex justify-between flex-wrap sm:flex-nowrap">
+      <h1 class="text-2xl font-semibold text-black">
+        List of all Medical Notes
+      </h1>
+      <button *ngIf="user.role === 'doctor'" (click)="openModal(noteModal)" class="rounded-lg h-10 px-5 shadow-md text-white bg-blue-800 hover:bg-blue-900 text-base duration-300">
+        Add medical note
+      </button>
+    </div>
+    <div *ngIf="!notesData || notesData.length === 0" class="flex justify-center mt-8">
+      <p class="text-black text-lg">No any medical note added here yet!</p>
+    </div>
+    <div class="overflow-x-auto relative mt-8" *ngIf="notesData && notesData.length > 0">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="py-3 px-6">Created_at</th>
+            <th scope="col" class="py-3 px-6">Medical Note</th>
+            <th scope="col" class="py-3 px-6">Doctor</th>
+            <th scope="col" class="py-3 px-6">Patient</th>
+            <th scope="col" class="py-3 px-6">Updated_at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of notesData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" (click)="goToDetailPage(data._id)">
+            <td class="py-4 px-6">
+              {{ moment(data.created_at).format("YYYY-MM-DD hh:mm:ss") }}
+            </td>
+            <td class="py-4 px-6">
+              {{ data.note }}
+            </td>
+            <td class="py-4 px-6">
+              {{ data.doctor?.name }}
+            </td>
+            <td class="py-4 px-6">
+              {{ data.patient?.name }}
+            </td>
+            <td class="py-4 px-6">
+              {{ moment(data.updated_at).format("ll") }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Patient Modal  -->
+  <ng-template #noteModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add a Medical Note</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 grid grid-cols-12 gap-y-5">
+        <div class="bg-white col-span-12">
+          <p class="mb-1 text-black bg-white" [ngStyle]="{ 'font-weight': '500' }">
+            Medical Note
+          </p>
+          <textarea required rows="8" [ngModel]="note" (ngModelChange)="handleNote($event)" type="text" class="w-full font-semibold bg-white outline-none px-4 max-h-60 border border-zinc-400 rounded-lg"></textarea>
+          <p class="bg-white text-red-500 text-xs mt-2" [ngStyle]="{ 'font-weight': '500' }">
+            {{ noteError ? "Note required!" : "" }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="px-4 h-10 rounded-lg shadow-md hover:shadow-xl duration-300 text-white bg-blue-800 hover:bg-blue-900" (click)="handleAddNote()">
+        Add Note
+      </button>
+    </div>
+  </ng-template>
+</div>

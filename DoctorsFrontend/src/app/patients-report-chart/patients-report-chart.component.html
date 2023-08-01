@@ -1,0 +1,49 @@
+<div class="grid grid-cols-3 gap-2">
+  <div class="border rounded-lg p-2">
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions?.series"
+        [title]="{ text: 'Patients Age chart' }"
+        [chart]="chartOptions?.chart"
+        [dataLabels]="chartOptions?.dataLabels"
+        [plotOptions]="chartOptions?.plotOptions"
+        [responsive]="chartOptions?.responsive"
+        [xaxis]="chartOptions?.xaxis"
+        [legend]="chartOptions?.legend"
+        [fill]="chartOptions?.fill"
+      ></apx-chart>
+    </div>
+  </div>
+
+  <div class="border rounded-lg p-2">
+    <div id="chartHeight">
+      <apx-chart
+        [series]="chartOptionsHeight?.series"
+        [title]="{ text: 'Patients Height chart' }"
+        [chart]="chartOptionsHeight?.chart"
+        [dataLabels]="chartOptionsHeight?.dataLabels"
+        [plotOptions]="chartOptionsHeight?.plotOptions"
+        [responsive]="chartOptionsHeight?.responsive"
+        [xaxis]="chartOptionsHeight?.xaxis"
+        [legend]="chartOptionsHeight?.legend"
+        [fill]="chartOptionsHeight?.fill"
+      ></apx-chart>
+    </div>
+  </div>
+
+  <div class="border rounded-lg p-2">
+    <div id="chartWeight">
+      <apx-chart
+        [series]="chartOptionsWeight?.series"
+        [title]="{ text: 'Patients Weight chart' }"
+        [chart]="chartOptionsWeight?.chart"
+        [dataLabels]="chartOptionsWeight?.dataLabels"
+        [plotOptions]="chartOptionsWeight?.plotOptions"
+        [responsive]="chartOptionsWeight?.responsive"
+        [xaxis]="chartOptionsWeight?.xaxis"
+        [legend]="chartOptionsWeight?.legend"
+        [fill]="chartOptionsWeight?.fill"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

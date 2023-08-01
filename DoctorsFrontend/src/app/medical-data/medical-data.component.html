@@ -1,0 +1,162 @@
+<div class="">
+  <div class="flex items-center gap-x-3 mb-16 flex-wrap">
+    <button
+      *ngFor="let btn of buttonsList"
+      (click)="btnTab = btn"
+      [ngClass]="
+        btnTab == btn ? 'text-white bg-blue-800' : 'text-blue-800 bg-white'
+      "
+      class="shadow-md h-12 w-44 rounded-md text-sm mb-1"
+    >
+      {{ btn }}
+    </button>
+  </div>
+  <!-- Personal Information  -->
+  <div
+    *ngIf="btnTab === 'Personal Information'"
+    class="rounded-lg bg-white w-full min-h-60 mb-20 shadow-md py-5 text-black grid grid-cols-12 gap-y-5 md:gap-y-0 md:gap-x-5"
+  >
+    <div
+      class="flex flex-col gap-y-5 col-span-12 md:col-span-6 px-10 md:border-r md:border-zinc-200"
+    >
+      <h1 class="font-semibold text-blue-800 text-xl mb-8">
+        Patient's Details
+      </h1>
+
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Name:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.name }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Age:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.age }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Gender:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.gender }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Phone:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.phone }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Height:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.height }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Weight:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.weight }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">PESELNO:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.peselNo }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-5 col-span-12 md:col-span-6 px-10">
+      <h1 class="font-semibold text-blue-800 text-xl mb-8">
+        Patient's Doctor's Details
+      </h1>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Doctor Name:</p>
+        <p class="font-semibold text-xl">
+          Dr.
+          {{ roleUser.doctor.name }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Phone:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.doctor.phone }}
+        </p>
+      </div>
+      <div class="flex items-center justify-between gap-x-5 w-full">
+        <p class="font-semibold">Gender:</p>
+        <p class="font-semibold text-xl">
+          {{ roleUser.doctor.gender }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- ******************** -->
+  <div *ngIf="btnTab === 'Blood Pressure'">
+    <app-blood-pressure [patientId]="roleUser._id"></app-blood-pressure>
+  </div>
+  <div *ngIf="btnTab === 'Blood Sugar'">
+    <app-blood-sugar [patientId]="roleUser._id"></app-blood-sugar>
+  </div>
+  <div *ngIf="btnTab === 'Saturation'">
+    <app-saturation [patientId]="roleUser._id"></app-saturation>
+  </div>
+  <div *ngIf="btnTab === 'Heart Rate'">
+    <app-heart-rate [patientId]="roleUser._id"></app-heart-rate>
+  </div>
+</div>
+
+<!-- ********************************************************************* -->
+<div *ngIf="btnTab === 'Medical Note'" class="mt-20">
+  <!-- Page content goes here  -->
+  <div class="mb-8 flex justify-between flex-wrap sm:flex-nowrap">
+    <h1 class="text-2xl font-semibold text-black">List of all Medical Notes</h1>
+  </div>
+  <div
+    *ngIf="!notesData || notesData.length === 0"
+    class="flex justify-center mt-8"
+  >
+    <p class="text-black text-lg">No any medical note added here yet!</p>
+  </div>
+  <div
+    class="overflow-x-auto relative mt-8"
+    *ngIf="notesData && notesData.length > 0"
+  >
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="py-3 px-6">Created_at</th>
+          <th scope="col" class="py-3 px-6">Medical Note</th>
+          <th scope="col" class="py-3 px-6">Doctor</th>
+          <th scope="col" class="py-3 px-6">Patient</th>
+          <th scope="col" class="py-3 px-6">Updated_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of notesData"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          (click)="goToDetailPage(data._id)"
+        >
+          <td class="py-4 px-6">
+            {{ moment(data.created_at).format("YYYY-MM-DD hh:mm:ss") }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.note }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.doctor?.name }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.patient?.name }}
+          </td>
+          <td class="py-4 px-6">
+            {{ moment(data.updated_at).format("ll") }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

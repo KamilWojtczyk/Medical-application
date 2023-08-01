@@ -1,0 +1,29 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen">
+    <!-- <mat-drawer mode="side" opened="true"> -->
+    <div *ngIf="user.role === 'patient'">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div *ngIf="user.role === 'admin'">
+      <app-admin-sidebar></app-admin-sidebar>
+    </div>
+    <div *ngIf="user.role === 'doctor'">
+      <app-doctors-sidebar></app-doctors-sidebar>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+    <div class="container-fluid page">
+      <div class="d-flex page__box p-3 mt-2">
+        <p class="text-blue-800 text-2xl font-semibold">
+          {{ user.role === "patient" ? "Patient Dashboard" : "" }}
+          {{ user.role === "doctor" ? "Doctor Dashboard" : "" }}
+          {{ user.role === "admin" ? "Admin Dashboard" : "" }}
+        </p>
+      </div>
+      <div class="page__content shadow p-3 position-relative">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

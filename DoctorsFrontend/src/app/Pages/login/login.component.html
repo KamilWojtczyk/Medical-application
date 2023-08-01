@@ -1,0 +1,64 @@
+<div class="flex items-center justify-center mt-20 w-full">
+  <div class="login-card">
+    <h1 class="text-4xl text-center font-bold text-black">Login</h1>
+    <div
+      class="mt-20 w-full p-8 flex flex-col gap-y-4 justify-center"
+      [ngStyle]="{
+        background: '#FFFFFF',
+        boxShadow: '8px 10px 28px rgba(0, 0, 0, 0.25)',
+        borderRadius: '50px',
+        'min-height': '463px'
+      }"
+    >
+      <div class="bg-white">
+        <p
+          class="mb-3 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Email
+        </p>
+        <input
+          [ngModel]="email"
+          (ngModelChange)="handleEmail($event)"
+          type="email"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ emailError ? "Incorrect email format!" : "" }}
+        </p>
+      </div>
+
+      <div class="bg-white">
+        <p
+          class="mb-3 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Password
+        </p>
+        <input
+          [ngModel]="password"
+          (ngModelChange)="handlePassword($event)"
+          type="password"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ passError ? "Password too short!" : "" }}
+        </p>
+      </div>
+      <div class="bg-white">
+        <button
+          (click)="handleLogin()"
+          class="w-full text-white uppercase mt-6 bg-blue-700 border border-blue-700 rounded-lg h-10"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

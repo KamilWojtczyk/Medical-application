@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf="user.role === 'patient'">
+    <app-patient-dashboard></app-patient-dashboard>
+  </div>
+  <div *ngIf="user.role === 'doctor'">
+    <app-doctor-dashboard></app-doctor-dashboard>
+  </div>
+  <div *ngIf="user.role === 'admin'">
+    <app-admin-dashboard></app-admin-dashboard>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<div class="">
+  <!-- Page content goes here  -->
+
+  <div class="mb-8 flex justify-between flex-wrap sm:flex-nowrap">
+    <h1 class="text-2xl font-semibold text-black">List of all Doctors</h1>
+    <button
+      (click)="openModal(mymodal)"
+      class="rounded-lg h-10 px-5 shadow-md text-blue-700 hover:text-white hover:bg-blue-800 text-base duration-300"
+    >
+      Add Doctor
+    </button>
+  </div>
+  <div
+    *ngIf="!doctorsData || doctorsData.length === 0"
+    class="flex justify-center mt-8"
+  >
+    <p class="text-black text-lg">No any doctor added here yet!</p>
+  </div>
+  <div
+    class="overflow-x-auto relative mt-8"
+    *ngIf="doctorsData && doctorsData.length > 0"
+  >
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="py-3 px-6">Created On</th>
+          <th scope="col" class="py-3 px-6">Name</th>
+          <th scope="col" class="py-3 px-6">Phone</th>
+          <th scope="col" class="py-3 px-6">Gender</th>
+
+          <th scope="col" class="py-3 px-6">Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of doctorsData"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+        >
+          <td class="py-4 px-6">
+            {{ moment(data.created_at).format("YYYY-MM-DD hh:mm:ss") }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.name }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.phone }}
+          </td>
+          <td class="py-4 px-6">
+            {{ data.gender }}
+          </td>
+
+          <td class="py-4 px-6">
+            {{ moment(data.updated_at).format("ll") }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title font-semibold" id="modal-basic-title">
+      Add a Doctor
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body w-full">
+    <div class="bg-white px-4 pb-4 sm:p-6 sm:pb-4 grid grid-cols-12 gap-3">
+      <div class="bg-white col-span-6">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Name
+        </p>
+        <input
+          required
+          [ngModel]="name"
+          (ngModelChange)="handleName($event)"
+          type="text"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ nameError ? "Name required!" : "" }}
+        </p>
+      </div>
+      <div class="bg-white col-span-6">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Email
+        </p>
+        <input
+          required
+          [ngModel]="email"
+          (ngModelChange)="handleEmail($event)"
+          type="email"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ emailError ? "Incorrect email format!" : "" }}
+        </p>
+      </div>
+
+      <div class="bg-white col-span-6">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Password
+        </p>
+        <input
+          required
+          [ngModel]="password"
+          (ngModelChange)="handlePassword($event)"
+          type="password"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ passError ? "Password too short!" : "" }}
+        </p>
+      </div>
+      <div class="bg-white col-span-6">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Phone
+        </p>
+        <input
+          required
+          [ngModel]="ph"
+          (ngModelChange)="handlePh($event)"
+          type="text"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 rounded-lg"
+        />
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ phError ? "Phone number required!" : "" }}
+        </p>
+      </div>
+      <div class="bg-white col-span-6">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Gender
+        </p>
+        <select
+          [ngModel]="gender"
+          (ngModelChange)="handleGender($event)"
+          type="text"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 rounded-lg"
+        >
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+        <p
+          class="bg-white text-red-500 text-xs mt-2"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          {{ genderError ? "Gender required!" : "" }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="px-4 h-10 rounded-lg bg-white shadow-md hover:shadow-xl duration-300 hover:text-blue-800"
+      (click)="handleSubmit()"
+    >
+      Add Doctor
+    </button>
+  </div>
+</ng-template>

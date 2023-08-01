@@ -1,0 +1,35 @@
+.notification-content {
+    h6 {
+        font-size: 15px;
+        margin-bottom: 0;
+        line-height: 16px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    p.time {
+        text-align: start;
+        font-size: 10px;
+    }
+}
+
+mat-divider {
+    margin: 5px 0 5px 0;
+}
+
+.notification-line-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.unread {
+    background-color: #ddeaff;
+}
+
+.notification-list-wrapper {
+    max-height: 300px;
+    /* Set the desired maximum height */
+    overflow-y: auto;
+}
