@@ -1,24 +1,35 @@
 <div>
-    <div *ngIf="user.role === 'doctor'">
-        <div class="flex items-center gap-x-5 mt-3">
-            <div class="w-80 h-28">
-                <p class="mb-1 text-black bg-white" [ngStyle]="{ 'font-weight': '500' }">
-                    Select Date
-                </p>
-                <input type="date" [(ngModel)]="selectedDate" [ngStyle]="{ outline: 'none', 'box-shadow': 'none' }"
-                    class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 text-blue-800 rounded-lg" />
-            </div>
+  <div *ngIf="user.role === 'doctor'">
+    <div class="flex items-center gap-x-5 mt-3">
+      <div class="w-80 h-28">
+        <p
+          class="mb-1 text-black bg-white"
+          [ngStyle]="{ 'font-weight': '500' }"
+        >
+          Select Date
+        </p>
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          [ngStyle]="{ outline: 'none', 'box-shadow': 'none' }"
+          class="w-full font-semibold bg-white outline-none px-4 h-10 border border-zinc-400 text-blue-800 rounded-lg"
+        />
+      </div>
 
-            <button (click)="onClickSearch()"
-                class="rounded-lg h-10 w-40 shadow-md -mt-3 text-white bg-blue-800 hover:bg-blue-900 text-sm duration-300 whitespace-nowrap">
-                Search
-            </button>
-        </div>
+      <button
+        (click)="onClickSearch()"
+        class="rounded-lg h-10 w-40 shadow-md -mt-3 text-white bg-blue-800 hover:bg-blue-900 text-sm duration-300 whitespace-nowrap"
+      >
+        Search
+      </button>
     </div>
-    <div *ngIf="!isShowChart" class="flex justify-center mt-8">
-        <p class="text-black text-lg">No ambulatory glucose profile data for that date</p>
-    </div>
-    <div>
-        <canvas id="agpChart"></canvas>
-    </div>
+  </div>
+  <div *ngIf="!isShowChart" class="flex justify-center mt-8">
+    <p class="text-black text-lg">
+      No ambulatory glucose profile data for that date
+    </p>
+  </div>
+  <div class="chart-container">
+    <canvas id="agpChart"></canvas>
+  </div>
 </div>
